@@ -12,7 +12,7 @@ export const usePatent = ()=>{
 
 
 
-        const bookAppointment = async (title: string, content:string, image:string) => {
+        const bookAppointment = async (appointment_date: string, doctorId:number) => {
             if (!token) {
               console.error('Token not found in useAdmin');
               return;
@@ -26,7 +26,7 @@ export const usePatent = ()=>{
                   'Content-Type': 'application/json',
                   'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ title, content, image}),
+                body: JSON.stringify({ appointment_date , doctorId}),
               });
           
               // Read the response as text first

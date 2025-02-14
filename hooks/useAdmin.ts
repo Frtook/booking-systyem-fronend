@@ -21,7 +21,7 @@ export const useAuthor = () => {
   
   console.log('Token in useAdmin:', token); // Log the token value
 
-  const addDoctor = async (title: string, content:string, image:string) => {
+  const addDoctor = async (username: string, email:string, password:string, specialist:string) => {
     if (!token) {
       console.error('Token not found in useAdmin');
       return;
@@ -35,7 +35,7 @@ export const useAuthor = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ title, content, image}),
+        body: JSON.stringify({ username, email, password, specialist}),
       });
   
       // Read the response as text first
@@ -130,7 +130,7 @@ export const useAuthor = () => {
     }
   };
 
-  const updateDoctorStatus = async (id: string, status:number ) => {
+  const updateDoctorStatus = async (id: string, status:boolean ) => {
     setIsLoading(true);
     if (!token) {
       console.error('Token is missing');
