@@ -1,19 +1,44 @@
-// src/app/api/messages/[id]/route.ts
 import { NextResponse } from 'next/server';
-import { ENDPOINTS } from '@/constants/authEndpoints';
+import { ENDPOINTS } from '@/constants/doctorEndpionts';
 
-export async function GET(request: Request, { params }: { params: Promise<{ id: string }> })
-:Promise<NextResponse> {
-  const { id } = await params;
+export async function GET(request: Request) {
+  const authHeader = request.headers.get('Authorization');
 
-  // Simulate a call to your backend
-  const response = await fetch(`${ENDPOINTS.MESSAGES}/${id}`);
+  if (!authHeader) {
+    return NextResponse.json({ error: 'Authorization header missing' }, { status: 401 });
+  }
 
-  const data = await response.json();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 100000); // 5-second timeout
 
-  if (response.ok) {
+  try {
+    const response = await fetch(ENDPOINTS.GET_APPOINTMENTS, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': authHeader, // Include the authorization header
+      },
+      signal: controller.signal, // Attach the abort signal
+    });
+
+    clearTimeout(timeout); // Clear the timeout if the request succeeds
+
+    if (!response.ok) {
+      throw new Error(`bad internet connection`);
+    }
+
+    const data = await response.json();
     return NextResponse.json(data);
-  } else {
-    return NextResponse.json({ error: 'Messages not found' }, { status: 404 });
+  } catch (error) {
+    console.error('Error fetching appointments:', error);
+    clearTimeout(timeout); // Clear the timeout in case of an error
+
+    if (error === 'AbortError') {
+      console.error('Fetch request timed out');
+      return NextResponse.json({ error: 'Request timed out' }, { status: 504 });
+    }
+
+    console.error('Fetch error:', error);
+    return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 });
   }
 }

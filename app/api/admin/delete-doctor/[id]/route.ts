@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { ENDPOINTS } from '@/constants/authEndpoints';
+import { ENDPOINTS } from '@/constants/adminEndpoints';
 
 export async function DELETE(request: Request, { params }: { params: Promise< { id: string }> })
 :Promise<NextResponse> {
@@ -15,10 +15,10 @@ export async function DELETE(request: Request, { params }: { params: Promise< { 
   }
 
   const { id } =await params; // Extract the chat room ID from the URL params
-  console.log(`Deleting chat room with ID: ${id}`);
+  console.log(`Deleting doctor with ID: ${id}`);
 
   // Simulate a call to your backend to delete the chat room
-  const response = await fetch(`${ENDPOINTS.POSTS}/delete-post/${id}`, {
+  const response = await fetch(`${ENDPOINTS.DELETE_DOCTOR}/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -27,8 +27,8 @@ export async function DELETE(request: Request, { params }: { params: Promise< { 
   });
 
   if (response.ok) {
-    return NextResponse.json({ message: 'Chat room deleted successfully' });
+    return NextResponse.json({ message: 'doctor deleted successfully' });
   } else {
-    return NextResponse.json({ error: 'Failed to delete chat room' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to delete doctor' }, { status: 500 });
   }
 }

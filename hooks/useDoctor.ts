@@ -9,7 +9,7 @@ export const useDoctor=()=>{
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const fetchAppointents = useCallback(async () => {
+    const fetchAppointments = useCallback(async () => {
         try {
           setIsLoading(true); // Set loading to true
     
@@ -36,10 +36,10 @@ export const useDoctor=()=>{
     
       useEffect(() => {
         if (token) {
-            fetchAppointents();
+          fetchAppointments();
           
         }
-      }, [token,fetchAppointents]);
+      }, [token,fetchAppointments]);
 
       return {appointment,error,isLoading};
 

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { ENDPOINTS } from '@/constants/authEndpoints';
+import { ENDPOINTS } from '@/constants/adminEndpoints';
 
 
 export async function PUT(
@@ -38,7 +38,7 @@ export async function PUT(
   }
 
   // Make a call to your backend to update the post status.
-  const response = await fetch(`${ENDPOINTS.POSTS}/edit-post/${id}`, {
+  const response = await fetch(`${ENDPOINTS.UPDATE_DOCTOR}/${id}`, {
     method: 'PUT', // Use PUT (or PATCH) for updating
     headers: {
       'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export async function PUT(
   });
 
   if (response.ok) {
-    return NextResponse.json({ message: 'Post updated successfully' });
+    return NextResponse.json({ message: 'doctor status updated successfully' });
   } else {
     return NextResponse.json(
       { error: 'Failed to update post' },

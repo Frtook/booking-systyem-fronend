@@ -20,7 +20,7 @@ export const usePatent = ()=>{
           
             try {
               setIsLoading(true);
-              const response = await fetch('/api/author/create', {
+              const response = await fetch('/api/patent/book-appointment', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export const usePatent = ()=>{
                 console.error("Unexpected response format:", responseText);
               }
             } catch (error) {
-              console.error('Error creating chat room:', error);
+              console.error('Error booking appointment:', error);
             }
           };
 
@@ -62,7 +62,7 @@ export const usePatent = ()=>{
               try {
                 setIsLoading(true); // Set loading to true
           
-                const response = await fetch('/api/author',{
+                const response = await fetch('/api/patent/get-appointments',{
                   method: 'GET',
                   headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export const usePatent = ()=>{
                 const appointments = result.data; // Access the `data` array
                 setAppointment(appointments || []); // Fallback to empty array if `data` is undefined
               } catch (error) {
-                console.error('Error fetching chat rooms:', error);
+                console.error('Error fetching appointments:', error);
                 setAppointment([]); // Set to empty array on error
               } finally {
                 setIsLoading(false); // Set loading to false
@@ -83,7 +83,7 @@ export const usePatent = ()=>{
               try {
                 setIsLoading(true); // Set loading to true
           
-                const response = await fetch('/api/author',{
+                const response = await fetch('/api/patent/get-doctors',{
                   method: 'GET',
                   headers: {
                     'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export const usePatent = ()=>{
                 const users = result.data; // Access the `data` array
                 setDoctor(users || []); // Fallback to empty array if `data` is undefined
               } catch (error) {
-                console.error('Error fetching chat rooms:', error);
+                console.error('Error fetching doctors:', error);
                 setDoctor([]); // Set to empty array on error
               } finally {
                 setIsLoading(false); // Set loading to false

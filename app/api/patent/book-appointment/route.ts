@@ -1,9 +1,9 @@
 // src/app/api/chat-rooms/create/route.ts
 import { NextResponse } from 'next/server';
-import { ENDPOINTS } from '@/constants/adminEndpoints';
+import { ENDPOINTS } from '@/constants/patentEndpoints';
 
 export async function POST(request: Request) {
-  const { username,email,password,specialist } = await request.json();
+  const { title,content,image } = await request.json();
   const authHeader = request.headers.get('Authorization');
 
   if (!authHeader) {
@@ -19,12 +19,12 @@ export async function POST(request: Request) {
   }
 
   try {
-    const response = await fetch(`${ENDPOINTS.ADD_DOCTOR}`, {
+    const response = await fetch(`${ENDPOINTS.BOOK_APPOINTMENT}/create-posts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,      },
-      body: JSON.stringify({ username,email,password,specialist }), // Include userIds in the request
+      body: JSON.stringify({ title,content,image }), // Include userIds in the request
     });
 
     const data = await response.json();
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     if (response.ok) {
       return NextResponse.json(data);
     } else {
-      return NextResponse.json({ error: data.error || 'Failed to create doctors' }, { status: 400 });
+      return NextResponse.json({ error: data.error || 'Failed to create chat room' }, { status: 400 });
     }
   } catch (error) {
     console.error('Error in API route:', error);

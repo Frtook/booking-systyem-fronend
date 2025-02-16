@@ -21,7 +21,7 @@ export const useAuthor = () => {
   
   console.log('Token in useAdmin:', token); // Log the token value
 
-  const addDoctor = async (username: string, email:string, password:string, specialist:string) => {
+  const addDoctor = async (username: string, email:string, password:string, specialist:string,workingTime:string) => {
     if (!token) {
       console.error('Token not found in useAdmin');
       return;
@@ -35,7 +35,7 @@ export const useAuthor = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ username, email, password, specialist}),
+        body: JSON.stringify({ username, email, password, specialist,workingTime}),
       });
   
       // Read the response as text first

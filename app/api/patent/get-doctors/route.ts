@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { ENDPOINTS } from '@/constants/adminEndpoints';
+import { ENDPOINTS } from '@/constants/patentEndpoints';
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get('Authorization');
@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   const timeout = setTimeout(() => controller.abort(), 100000); // 5-second timeout
 
   try {
-    const response = await fetch(ENDPOINTS.VIEW_DOCTOR, {
+    const response = await fetch(ENDPOINTS.GET_DOCTORS, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -23,15 +23,14 @@ export async function GET(request: Request) {
 
     clearTimeout(timeout); // Clear the timeout if the request succeeds
 
-    
+    if (!response.ok) {
+      throw new Error(`bad internet connection`);
+    }
 
     const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.message);
-    }
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error fetching doctors:', error);
+    console.error('Error fetching visitor posts:', error);
     clearTimeout(timeout); // Clear the timeout in case of an error
 
     if (error === 'AbortError') {

@@ -13,6 +13,7 @@ export interface User {
   password: string;
   status:boolean ;
   specialist: string;
+  workingTime: string;
   role:Role;
   createdAt: string;
   updatedAt: string;
