@@ -1,13 +1,16 @@
 import React from "react";
 import { Input } from "./ui/input";
-import { Bell, Search } from "lucide-react";
+import { Bell, Menu, Search } from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 export default function Navbar() {
   return (
     <div className="flex justify-between p-4 gap-10 items-center">
-      <div>
+      <div className="block  xl:hidden">
+        <MobileScreen />
+      </div>
+      <div className="hidden xl:block">
         <p className="text-[#7A7D84]">Hi Stevan dux</p>
         <p className="font-bold text-3xl">Welcome Back</p>
       </div>
@@ -16,7 +19,7 @@ export default function Navbar() {
         <Input className=" border-none v" placeholder="Find doctors" />
         <Button variant="default">Search</Button>
       </div>
-      <div className="flex items-center gap-5">
+      <div className="hidden xl:flex items-center gap-5">
         <Bell />
         <Avatar>
           <AvatarImage
@@ -30,3 +33,6 @@ export default function Navbar() {
     </div>
   );
 }
+const MobileScreen = () => {
+  return <Menu />;
+};

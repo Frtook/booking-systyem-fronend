@@ -1,6 +1,7 @@
+"use client";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Timer, User } from "lucide-react";
+import AddBooking from "./AddBooking";
 
 const CardDoctor = () => {
   return (
@@ -19,7 +20,7 @@ const CardDoctor = () => {
           <p className="text-gray-500">10:00 AM - 01:00 PM</p>
         </div>
       </div>
-      <Button>Book an appointment</Button>
+      <AddBooking />
     </div>
   );
 };
