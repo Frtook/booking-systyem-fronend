@@ -1,9 +1,9 @@
-// import apiClient from "@/lib/axios";
+import Cookie from "js-cookie";
 
-// export const checkToken = async () => {
-//   try {
-//     return await apiClient.get("/api/patent/get-doctors");
-//   } catch (error: any) {
-//     return error?.status;
-//   }
-// };
+export const getUserId = () => {
+  const userCookie = Cookie.get("user");
+  if (userCookie) {
+    const user: IUser = JSON.parse(userCookie);
+    return user.id;
+  }
+};

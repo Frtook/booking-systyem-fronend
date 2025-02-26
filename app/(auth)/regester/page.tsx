@@ -87,7 +87,7 @@ export default function Regester() {
             variant={isSubmitting ? "outline" : "default"}
             type="submit"
           >
-            Login
+            Sign up
           </Button>
         </form>
       </div>

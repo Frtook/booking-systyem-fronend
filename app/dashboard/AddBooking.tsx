@@ -1,3 +1,4 @@
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,10 +11,18 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import BookingForm from "./BookingForm";
-const AddBooking = () => {
+
+import { Input } from "@/components/ui/input";
+import { useBookAppointment } from "@/hooks/usePatent";
+import { useState } from "react";
+const AddBooking = ({ doctorID }: { doctorID: number }) => {
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
+  const { mutate: booking, error } = useBookAppointment();
+
   const handleClick = () => {
-    console.log("object");
+    console.log(doctorID);
+    booking({ doctorId: doctorID, appointment_date: date });
   };
   return (
     <AlertDialog>
@@ -24,7 +33,18 @@ const AddBooking = () => {
         <AlertDialogHeader>
           <AlertDialogTitle>Add a new booking</AlertDialogTitle>
           <AlertDialogDescription asChild>
-            <BookingForm />
+            <div>
+              <Input
+                placeholder="Patent Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <Input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </div>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

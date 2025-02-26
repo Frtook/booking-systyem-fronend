@@ -9,7 +9,7 @@ interface ILogin {
   password: string;
 }
 
-type ILoginResponse = {
+interface ILoginResponse {
   data: {
     data: {
       user: {
@@ -21,10 +21,41 @@ type ILoginResponse = {
       token: string;
     };
   };
-};
+}
 
 type SessionPayload = {
   userId: number;
   role: string;
   expiresAt: Date;
 };
+
+interface IUser {
+  id: number;
+  username?: string;
+  email?: string;
+  status?: boolean;
+  specialist?: string;
+  workingTime?: any;
+  role?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+interface IResponse {
+  data: IUser[];
+}
+interface IResponseAppoinement {
+  data: IAppointment[];
+}
+
+interface IBookAppoinetment {
+  appointment_date: string;
+  doctorId: number;
+}
+
+interface IAppointment {
+  id: number;
+  docotrID: string;
+  appointment_date?: string;
+  createdAt?: string;
+  doctor: IUser;
+}

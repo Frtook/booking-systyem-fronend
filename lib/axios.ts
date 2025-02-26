@@ -1,4 +1,4 @@
-import { getCookies } from "@/helper/cookies";
+import Cookies from "js-cookie";
 import axios, { AxiosResponse } from "axios";
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -16,11 +16,11 @@ declare module "axios" {
   }
 }
 
-axios.interceptors.request.use(
+apiClient.interceptors.request.use(
   (config) => {
-    const token = getCookies("token");
+    const token = Cookies.get("token");
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${JSON.parse(token)}`;
     }
     return config;
   },
