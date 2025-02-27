@@ -33,7 +33,7 @@ export const useLogin = () => {
       // await setCookies("user", data.data.data.user, DAYS);
       // await setCookies("token", data.data.data.token, DAYS);
       // await createSession(data.data.data.user.id, data.data.data.user.role);
-      push("/dashboard");
+      push("/");
     },
     onError: (error) => error,
   });
