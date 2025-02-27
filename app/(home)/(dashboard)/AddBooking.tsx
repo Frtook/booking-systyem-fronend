@@ -15,13 +15,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useBookAppointment } from "@/hooks/usePatent";
 import { useState } from "react";
+import { toast } from "sonner";
 const AddBooking = ({ doctorID }: { doctorID: number }) => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
-  const { mutate: booking, error } = useBookAppointment();
-
+  const { mutate: booking, error, isSuccess, isError } = useBookAppointment();
+  if (isError) toast.error(error.message);
+  if (isSuccess) toast.success("Success to booking");
   const handleClick = () => {
-    console.log(doctorID);
     booking({ doctorId: doctorID, appointment_date: date });
   };
   return (

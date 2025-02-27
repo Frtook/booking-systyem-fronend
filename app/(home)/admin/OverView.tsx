@@ -1,19 +1,33 @@
+import { getDocotrStatus } from "@/helper/helper";
+import { useGetAdminDoctors } from "@/hooks/useAdmin";
 import { BriefcaseMedical, Eye, ShieldCheck, User } from "lucide-react";
 import React from "react";
+import { toast } from "sonner";
 
 export default function OverView() {
+  const { data, error, isError } = useGetAdminDoctors();
+  const activeDoctor = getDocotrStatus(data);
+  if (isError) toast.error(error.message);
   return (
     <div className="p-4 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4  ">
-      <Card name="Users" number={1234} icon={<User />} />
-      <Card name="Doctor" number={1234} icon={<BriefcaseMedical />} />
-      <Card name="View" number={1234} icon={<Eye />} />
-      <Card name="Active Doctor" number={1234} icon={<ShieldCheck />} />
+      <Card name="Patents" number={data?.length * 2 || "..."} icon={<User />} />
+      <Card
+        name="Doctor"
+        number={data?.length || "..."}
+        icon={<BriefcaseMedical />}
+      />
+      <Card name="View" number={12} icon={<Eye />} />
+      <Card
+        name="Active Doctor"
+        number={activeDoctor || "..."}
+        icon={<ShieldCheck />}
+      />
     </div>
   );
 }
 interface ICard {
   name: string;
-  number: number;
+  number: number | string;
   icon: React.ReactNode;
 }
 const Card: React.FC<ICard> = ({ name, number, icon }) => {

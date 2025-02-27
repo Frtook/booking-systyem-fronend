@@ -1,9 +1,9 @@
 "use client";
-import Cookies from "js-cookie";
-
 import { useMutation, useQuery } from "@tanstack/react-query";
 import apiClient from "@/lib/axios";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { setCookies } from "@/helper/cookie";
 
 const DAYS = 60 * 60 * 24 * 7; // 7 days
 export const useRegester = () => {
@@ -13,9 +13,13 @@ export const useRegester = () => {
       return await apiClient.post("/api/auth/register", regesterData);
     },
     onSuccess: async () => {
+      toast.success("success register");
       push("/login");
     },
-    onError: (error) => error,
+    onError: (error) => {
+      toast.error(error.message);
+      return error;
+    },
   });
 };
 
@@ -26,15 +30,13 @@ export const useLogin = () => {
       return await apiClient.post<ILoginResponse>("/api/auth/login", loginData);
     },
     onSuccess: async (data) => {
-      Cookies.set("token", JSON.stringify(data.data.data.token), {
-        expires: 7,
-      });
-      Cookies.set("user", JSON.stringify(data.data.data.user), { expires: 7 });
-      // await setCookies("user", data.data.data.user, DAYS);
-      // await setCookies("token", data.data.data.token, DAYS);
-      // await createSession(data.data.data.user.id, data.data.data.user.role);
+      toast.success("welcome back");
+      await setCookies("token", data.data.data.token, DAYS);
       push("/");
     },
-    onError: (error) => error,
+    onError: (error) => {
+      toast.error(error.message);
+      return error;
+    },
   });
 };

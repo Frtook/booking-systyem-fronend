@@ -2,12 +2,15 @@
 import { invalidateQueries } from "@/helper/helper";
 import apiClient from "@/lib/axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export const useGetDoctor = () => {
   return useQuery({
     queryKey: ["doctor"],
     queryFn: async () => {
-      const res = await apiClient.get<IResponsePatent>("/api/patent/get-doctors");
+      const res = await apiClient.get<IResponsePatent>(
+        "/api/patent/get-doctors"
+      );
       return res.data;
     },
   });
@@ -21,10 +24,14 @@ export const useBookAppointment = () => {
       );
     },
     onSuccess: (data) => {
+      toast.success("success booking");
       invalidateQueries("appointments");
       return data.data;
     },
-    onError: (error) => error,
+    onError: (error) => {
+      toast.error(error.message);
+      return error;
+    },
   });
 };
 

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRegester } from "@/hooks/useAuth";
+import { toast } from "sonner";
 const schemaLogin = z.object({
   username: z.string().min(3, "Username must be at least 3 characters long"),
   email: z
@@ -18,8 +19,7 @@ const schemaLogin = z.object({
 type TschemaLogin = z.infer<typeof schemaLogin>;
 
 export default function Regester() {
-  // const [error, setError] = useState<Error>();
-  const { mutate: regester, error: errorRegester } = useRegester();
+  const { mutate: regester, error } = useRegester();
   const {
     register,
     handleSubmit,
@@ -28,10 +28,9 @@ export default function Regester() {
     resolver: zodResolver(schemaLogin),
   });
   const onSubmit = async (data: TschemaLogin) => {
-    // if (error) setError(errorRegester.message);
     regester(data);
   };
-
+  if (error) toast.error(error?.message);
   return (
     <div className="">
       <div className="max-w-[50%] mx-auto mt-20 flex flex-col gap-10">
@@ -81,7 +80,6 @@ export default function Regester() {
               <p className="text-red-500">{`${errors.password.message}`}</p>
             )}
           </div>
-          {/* {error && <p className="text-red-500">{error}</p>} */}
           <Button
             disabled={isSubmitting}
             variant={isSubmitting ? "outline" : "default"}

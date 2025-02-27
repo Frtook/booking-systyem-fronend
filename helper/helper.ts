@@ -13,3 +13,7 @@ export const invalidateQueries = (key: string) => {
   const queryClient = new QueryClient();
   queryClient.invalidateQueries({ queryKey: [key] });
 };
+
+export const getDocotrStatus = (data: any) => {
+  if (data) return data.filter((doctor: IUser) => doctor.status).length;
+};

@@ -2,12 +2,10 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 const Slider = () => {
   return (
-    <Carousel className="w-[80%] h-[200px]  mx-auto ">
+    <Carousel className="h-[376px]">
       <CarouselContent className="h-full w-full">
         <CarouselItem className="w-full h-full">
           <div
@@ -43,8 +41,6 @@ const Slider = () => {
           </div>
         </CarouselItem>
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
     </Carousel>
   );
 };

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLogin } from "@/hooks/useAuth";
+import { toast } from "sonner";
 const schemaLogin = z.object({
   email: z.string().min(5, "the email shuld be more than 5"),
   password: z.string().min(8, "the password shuld be more than 8"),
@@ -23,6 +24,7 @@ export default function Login() {
     resolver: zodResolver(schemaLogin),
   });
   const onSubmit = (data: TschemaLogin) => login(data);
+
   return (
     <div className="">
       <div className="max-w-[50%] mx-auto mt-20 flex flex-col gap-10">
