@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import { Toaster } from "sonner";
-import { getCookies } from "@/helper/cookie";
 
 export const metadata: Metadata = {
   title: "Create Next App",

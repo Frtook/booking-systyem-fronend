@@ -10,19 +10,9 @@ import CardDoctorLoading from "../../loading/CardDoctorLoading";
 import Appointments from "./Appointments";
 import { toast } from "sonner";
 
-export default function page() {
-  const { data: doctors, isLoading, error } = useGetDoctor();
-  if (error) {
-    console.log(error);
-    toast(error.message),
-      {
-        // description: error.name,
-        action: {
-          label: "OK",
-          onClick: () => console.log("Undo"),
-        },
-      };
-  }
+export default function Page() {
+  const { data: doctors, isLoading, error, isError } = useGetDoctor();
+  if (isError) toast.error(error.message);
   return (
     <div className="p-4">
       {error && error.message}

@@ -29,7 +29,12 @@ export default function DeleteDoctor() {
           </DialogDescription>
 
           <DialogClose asChild>
-            <Button type="button" className="self-center" variant="destructive">
+            <Button
+              onClick={() => handleDelete()}
+              type="button"
+              className="self-center"
+              variant="destructive"
+            >
               Delete
             </Button>
           </DialogClose>
