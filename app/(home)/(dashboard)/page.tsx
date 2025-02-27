@@ -6,7 +6,7 @@ import { ChevronRight } from "lucide-react";
 import Appointments from "./Appointments";
 import Slider from "./Slider";
 import { useGetAppoinments, useGetDoctor } from "@/hooks/usePatent";
-import CardDoctorLoading from "../loading/CardDoctorLoading";
+import CardDoctorLoading from "../../loading/CardDoctorLoading";
 
 export default function page() {
   const { data: doctors, isLoading, error } = useGetDoctor();

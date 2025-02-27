@@ -1,8 +1,12 @@
+"use client";
 import React from "react";
 import CardDoctor from "./CardDoctor";
 import OverView from "./OverView";
+import { useGetAdminDoctors } from "@/hooks/useAdmin";
 
 export default function page() {
+  const { data } = useGetAdminDoctors();
+  console.log(data);
   return (
     <div className="p-4">
       <h1 className="font-bold text-3xl mb-4">OverView</h1>

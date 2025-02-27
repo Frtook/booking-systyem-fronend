@@ -1,4 +1,5 @@
 "use client";
+import { invalidateQueries } from "@/helper/helper";
 import apiClient from "@/lib/axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -6,21 +7,23 @@ export const useGetDoctor = () => {
   return useQuery({
     queryKey: ["doctor"],
     queryFn: async () => {
-      const res = await apiClient.get<IResponse>("/api/patent/get-doctors");
+      const res = await apiClient.get<IResponsePatent>("/api/patent/get-doctors");
       return res.data;
     },
   });
 };
 export const useBookAppointment = () => {
   return useMutation({
-    mutationKey: ["appointments"],
     mutationFn: async (bookAppointment: IBookAppoinetment) => {
-      return await apiClient.post(
+      return await apiClient.post<IResponse>(
         "/api/patent/book-appointment",
         bookAppointment
       );
     },
-    onSuccess: (data) => data,
+    onSuccess: (data) => {
+      invalidateQueries("appointments");
+      return data.data;
+    },
     onError: (error) => error,
   });
 };

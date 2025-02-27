@@ -40,8 +40,11 @@ interface IUser {
   createdAt?: string;
   updatedAt?: string;
 }
-interface IResponse {
+interface IResponsePatent {
   data: IUser[];
+}
+interface IResponse {
+  data: any;
 }
 interface IResponseAppoinement {
   data: IAppointment[];

@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Timer, User } from "lucide-react";
 import React from "react";
-import AddBooking from "../(dashboard)/AddBooking";
+import AddBooking from "../(home)/(dashboard)/AddBooking";
 
 export default function CardDoctorLoading() {
   return (
