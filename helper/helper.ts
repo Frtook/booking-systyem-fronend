@@ -1,19 +1,23 @@
+"use server";
+import { encrypt } from "@/lib/session";
 import { QueryClient } from "@tanstack/react-query";
-import Cookie from "js-cookie";
+import { cookies } from "next/headers";
 
-export const getUserId = () => {
-  const userCookie = Cookie.get("user");
-  if (userCookie) {
-    const user: IUser = JSON.parse(userCookie);
-    return user.id;
-  }
-};
-
-export const invalidateQueries = (key: string) => {
+export const invalidateQueries = async (key: string) => {
   const queryClient = new QueryClient();
   queryClient.invalidateQueries({ queryKey: [key] });
 };
 
-export const getDocotrStatus = (data: any) => {
-  if (data) return data.filter((doctor: IUser) => doctor.status).length;
-};
+export async function createSession(userId: number) {
+  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  const session = await encrypt({ userId });
+  const cookieStore = await cookies();
+
+  cookieStore.set("session", session, {
+    httpOnly: true,
+    secure: true,
+    expires: expiresAt,
+    sameSite: "lax",
+    path: "/",
+  });
+}

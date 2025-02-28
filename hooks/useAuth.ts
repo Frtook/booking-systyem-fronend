@@ -1,11 +1,10 @@
-"use client";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import apiClient from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { setCookies } from "@/helper/cookie";
-
-const DAYS = 60 * 60 * 24 * 7; // 7 days
+import { createSession } from "@/helper/helper";
+const DAYS = 60 * 60 * 1000 * 7;
 export const useRegester = () => {
   const { push } = useRouter();
   return useMutation({
@@ -32,6 +31,7 @@ export const useLogin = () => {
     onSuccess: async (data) => {
       toast.success("welcome back");
       await setCookies("token", data.data.data.token, DAYS);
+      await createSession(data.data.data.user.id);
       push("/");
     },
     onError: (error) => {

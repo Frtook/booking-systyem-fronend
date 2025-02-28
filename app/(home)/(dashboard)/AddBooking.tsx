@@ -19,9 +19,8 @@ import { toast } from "sonner";
 const AddBooking = ({ doctorID }: { doctorID: number }) => {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
-  const { mutate: booking, error, isSuccess, isError } = useBookAppointment();
+  const { mutate: booking, error, isError } = useBookAppointment();
   if (isError) toast.error(error.message);
-  if (isSuccess) toast.success("Success to booking");
   const handleClick = () => {
     booking({ doctorId: doctorID, appointment_date: date });
   };

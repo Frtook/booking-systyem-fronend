@@ -1,4 +1,3 @@
-import { getDocotrStatus } from "@/helper/helper";
 import { useGetAdminDoctors } from "@/hooks/useAdmin";
 import { BriefcaseMedical, Eye, ShieldCheck, User } from "lucide-react";
 import React from "react";
@@ -6,7 +5,7 @@ import { toast } from "sonner";
 
 export default function OverView() {
   const { data, error, isError } = useGetAdminDoctors();
-  const activeDoctor = getDocotrStatus(data);
+  const activeDoctor = 6;
   if (isError) toast.error(error.message);
   return (
     <div className="p-4 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4  ">
@@ -41,3 +40,9 @@ const Card: React.FC<ICard> = ({ name, number, icon }) => {
     </div>
   );
 };
+
+// const getDocotrStatus = (data: IUser[]) => {
+//   if (data) {
+//     return data.filter((doctor: IUser) => doctor.status).length;
+//   }
+// };

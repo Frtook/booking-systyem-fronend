@@ -15,7 +15,6 @@ export default function Page() {
   if (isError) toast.error(error.message);
   return (
     <div className="p-4">
-      {error && error.message}
       <div className="grid grid-cols-1 md:grid-cols-2 h-[300px]">
         <Slider />
         <Appointments />

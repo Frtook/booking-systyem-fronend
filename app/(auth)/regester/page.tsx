@@ -33,7 +33,7 @@ export default function Regester() {
   if (error) toast.error(error?.message);
   return (
     <div className="">
-      <div className="max-w-[50%] mx-auto mt-20 flex flex-col gap-10">
+      <div className="w-full p-4 md:max-w-[50%] mx-auto mt-20 flex flex-col gap-10">
         <div className="text-center">
           <h1 className="font-bold text-4xl">Hey there</h1>
           <p className="text-gray-500 text-sm mt-5">

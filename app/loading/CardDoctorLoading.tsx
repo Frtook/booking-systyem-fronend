@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Timer, User } from "lucide-react";
 import React from "react";
-import AddBooking from "../(home)/(dashboard)/AddBooking";
 
 export default function CardDoctorLoading() {
   return (
@@ -20,7 +19,6 @@ export default function CardDoctorLoading() {
           <p className="text-gray-500"></p>
         </div>
       </div>
-      <AddBooking doctorID={0} />
     </div>
   );
 }

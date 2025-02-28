@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <div className="p-4">
       <div className="flex justify-between border-b  border-gray-500 py-4">
-        <Image src={imgLogo} alt="logo" />
+        <Image src={imgLogo} className="w-20 sm:w-40" alt="logo" />
         <div className="flex gap-5">
           {route.map((item, index) => (
             <Link key={index} href={item.path}>

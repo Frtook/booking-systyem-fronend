@@ -24,9 +24,9 @@ interface ILoginResponse {
 }
 
 type SessionPayload = {
-  userId: number;
-  role: string;
-  expiresAt: Date;
+  userId?: number;
+  role?: string;
+  expiresAt?: Date;
 };
 
 interface IUser {
