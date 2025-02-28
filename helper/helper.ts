@@ -8,9 +8,9 @@ export const invalidateQueries = async (key: string) => {
   queryClient.invalidateQueries({ queryKey: [key] });
 };
 
-export async function createSession(userId: number) {
+export async function createSession(user: IUser) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ userId });
+  const session = await encrypt({ user });
   const cookieStore = await cookies();
 
   cookieStore.set("session", session, {

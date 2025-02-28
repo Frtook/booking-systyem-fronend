@@ -23,11 +23,13 @@ interface ILoginResponse {
   };
 }
 
-type SessionPayload = {
+interface SessionPayload {
   userId?: number;
   role?: string;
+  user?: IUser;
+  token?: string;
   expiresAt?: Date;
-};
+}
 
 interface IUser {
   id: number;

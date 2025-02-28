@@ -30,8 +30,8 @@ export const useLogin = () => {
     },
     onSuccess: async (data) => {
       toast.success("welcome back");
+      // await createSession(data.data.data.user);
       await setCookies("token", data.data.data.token, DAYS);
-      await createSession(data.data.data.user.id);
       push("/");
     },
     onError: (error) => {

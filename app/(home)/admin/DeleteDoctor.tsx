@@ -9,9 +9,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-export default function DeleteDoctor() {
+import { useDeleteDoctors } from "@/hooks/useAdmin";
+export default function DeleteDoctor({ doctorID }: { doctorID: number }) {
+  const { mutate: dalete } = useDeleteDoctors();
   const handleDelete = () => {
-    console.log("delete");
+    dalete(doctorID);
   };
   return (
     <Dialog>

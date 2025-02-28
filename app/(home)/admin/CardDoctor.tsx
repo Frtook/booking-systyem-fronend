@@ -22,10 +22,13 @@ const Card = ({ doctor }: { doctor: IUser }) => {
       <div className="flex flex-col gap-5 items-center">
         <User size={50} />
         <p className="font-bold text-2xl">{doctor.username}</p>
-        <Badge variant="secondary">{doctor.specialist}</Badge>
+        <Badge variant={doctor.status ? "default" : "destructive"}>
+          {doctor.status ? "work" : "not work"}
+        </Badge>
+
         <div className="self-stretch flex justify-around">
-          <EditDoctor />
-          <DeleteDoctor />
+          <EditDoctor doctorID={doctor.id} />
+          <DeleteDoctor doctorID={doctor.id} />
         </div>
       </div>
     </div>
