@@ -52,3 +52,24 @@ export const useDeleteDoctors = () => {
     },
   });
 };
+
+export const useAddAdminDoctor = () => {
+  return useMutation({
+    mutationKey: ["admin-docto"],
+    mutationFn: async (doctoData: IUser) => {
+      return await apiClient.post<IResponse>(
+        "/api/admin/add-doctor",
+        doctoData
+      );
+    },
+    onSuccess: (data) => {
+      toast.success("Add success ");
+      invalidateQueries("admin-doctor");
+      return data.data;
+    },
+    onError: (error) => {
+      toast.error(error.message);
+      return error;
+    },
+  });
+};

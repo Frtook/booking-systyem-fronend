@@ -13,7 +13,6 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { useUpdateDoctors } from "@/hooks/useAdmin";
-import { useGetDoctor } from "@/hooks/usePatent";
 import { useState } from "react";
 export default function EditDoctor({ doctorID }: { doctorID: number }) {
   const { mutate: update } = useUpdateDoctors(doctorID);

@@ -27,14 +27,14 @@ interface SessionPayload {
   userId?: number;
   role?: string;
   user?: IUser;
-  token?: string;
   expiresAt?: Date;
 }
 
 interface IUser {
-  id: number;
+  id?: number;
   username?: string;
   email?: string;
+  password?: string;
   status?: boolean;
   specialist?: string;
   workingTime?: any;
@@ -63,4 +63,20 @@ interface IAppointment {
   appointment_date?: string;
   createdAt?: string;
   doctor: IUser;
+}
+
+interface IAppointmentDoctor {
+  id: number;
+  appointment_date: string;
+  status: boolean;
+  createdAt: string;
+  patentId: number;
+  doctorId: number;
+  patent: {
+    id: number;
+    username: string;
+    email: string;
+    createdAt: string;
+    updatedAt: string;
+  };
 }

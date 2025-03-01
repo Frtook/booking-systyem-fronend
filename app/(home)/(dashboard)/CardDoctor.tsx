@@ -20,7 +20,7 @@ const CardDoctor = (doctor: IUser) => {
           <p className="text-gray-500">{doctor.workingTime}</p>
         </div>
       </div>
-      <AddBooking doctorID={doctor.id} />
+      {doctor.id && <AddBooking doctorID={doctor.id} />}
     </div>
   );
 };

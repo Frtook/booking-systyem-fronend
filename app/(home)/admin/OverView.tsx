@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 export default function OverView() {
   const { data, error, isError } = useGetAdminDoctors();
-  const activeDoctor = 6;
+  console.log(data);
   if (isError) toast.error(error.message);
   return (
     <div className="p-4 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4  ">
@@ -18,7 +18,7 @@ export default function OverView() {
       <Card name="View" number={12} icon={<Eye />} />
       <Card
         name="Active Doctor"
-        number={activeDoctor || "..."}
+        number={getDocotrStatus(data) || "..."}
         icon={<ShieldCheck />}
       />
     </div>
@@ -41,8 +41,8 @@ const Card: React.FC<ICard> = ({ name, number, icon }) => {
   );
 };
 
-// const getDocotrStatus = (data: IUser[]) => {
-//   if (data) {
-//     return data.filter((doctor: IUser) => doctor.status).length;
-//   }
-// };
+const getDocotrStatus = (data: IUser[]) => {
+  if (data) {
+    return data.filter((doctor: IUser) => doctor.status).length;
+  }
+};

@@ -4,7 +4,7 @@ import { useGetAppoinments } from "@/hooks/usePatent";
 import React from "react";
 
 export default function Appointments() {
-  const { data: appoinments, isLoading, error } = useGetAppoinments();
+  const { data: appoinments, isLoading } = useGetAppoinments();
 
   return (
     <div className="p-4 rounded-xl shadow-xl ">

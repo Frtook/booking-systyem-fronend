@@ -3,7 +3,6 @@ import apiClient from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { setCookies } from "@/helper/cookie";
-import { createSession } from "@/helper/helper";
 const DAYS = 60 * 60 * 1000 * 7;
 export const useRegester = () => {
   const { push } = useRouter();
@@ -31,8 +30,11 @@ export const useLogin = () => {
     onSuccess: async (data) => {
       toast.success("welcome back");
       // await createSession(data.data.data.user);
+      console.log(data.data.data.user.role);
       await setCookies("token", data.data.data.token, DAYS);
-      push("/");
+      if (data.data.data.user.role === "ADMIN") push("/admin");
+      else if (data.data.data.user.role === "DOCTOR") push("/doctor");
+      else push("/");
     },
     onError: (error) => {
       toast.error(error.message);

@@ -26,10 +26,12 @@ const Card = ({ doctor }: { doctor: IUser }) => {
           {doctor.status ? "work" : "not work"}
         </Badge>
 
-        <div className="self-stretch flex justify-around">
-          <EditDoctor doctorID={doctor.id} />
-          <DeleteDoctor doctorID={doctor.id} />
-        </div>
+        {doctor.id && (
+          <div className="self-stretch flex justify-around">
+            <EditDoctor doctorID={doctor.id} />
+            <DeleteDoctor doctorID={doctor.id} />
+          </div>
+        )}
       </div>
     </div>
   );
