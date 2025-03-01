@@ -29,8 +29,6 @@ export const useLogin = () => {
     },
     onSuccess: async (data) => {
       toast.success("welcome back");
-      // await createSession(data.data.data.user);
-      console.log(data.data.data.user.role);
       await setCookies("token", data.data.data.token, DAYS);
       if (data.data.data.user.role === "ADMIN") push("/admin");
       else if (data.data.data.user.role === "DOCTOR") push("/doctor");

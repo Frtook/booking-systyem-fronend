@@ -54,5 +54,5 @@ const getDocotrStatus = (data: IUser[]) => {
 };
 
 const getPatentsCount = (data: IUser[]) => {
-  return data.filter((user) => user.role === "PATENT").length;
+  return data.filter((user) => user.role === "PATIENT").length;
 };

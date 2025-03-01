@@ -1,7 +1,6 @@
 "use client";
-import { invalidateQueries } from "@/helper/helper";
 import apiClient from "@/lib/axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export const useGetDoctor = () => {
@@ -16,6 +15,7 @@ export const useGetDoctor = () => {
   });
 };
 export const useBookAppointment = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (bookAppointment: IBookAppoinetment) => {
       return await apiClient.post<IResponse>(
@@ -25,7 +25,7 @@ export const useBookAppointment = () => {
     },
     onSuccess: (data) => {
       toast.success("success booking");
-      invalidateQueries("appointments");
+      queryClient.invalidateQueries({ queryKey: ["admin-doctor"] });
       return data.data;
     },
     onError: (error) => {

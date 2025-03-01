@@ -1,7 +1,6 @@
 "use client";
-import { invalidateQueries } from "@/helper/helper";
 import apiClient from "@/lib/axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export const useGetAdminDoctors = () => {
@@ -15,6 +14,7 @@ export const useGetAdminDoctors = () => {
 };
 
 export const useUpdateDoctors = (id: number) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (status: boolean) => {
       return await apiClient.put<IResponse>(`/api/admin/update-doctor/${id}`, {
@@ -23,7 +23,7 @@ export const useUpdateDoctors = (id: number) => {
     },
     onSuccess: (data) => {
       toast.success("updated success ");
-      invalidateQueries("admin-doctor");
+      queryClient.invalidateQueries({ queryKey: ["admin-doctor"] });
       return data.data;
     },
     onError: (error) => {
@@ -34,6 +34,7 @@ export const useUpdateDoctors = (id: number) => {
 };
 
 export const useDeleteDoctors = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["admin-doctor"],
     mutationFn: async (id: number) => {
@@ -43,7 +44,7 @@ export const useDeleteDoctors = () => {
     },
     onSuccess: (data) => {
       toast.success("delete success ");
-      invalidateQueries("admin-doctor");
+      queryClient.invalidateQueries({ queryKey: ["admin-doctor"] });
       return data.data;
     },
     onError: (error) => {
@@ -54,6 +55,7 @@ export const useDeleteDoctors = () => {
 };
 
 export const useAddAdminDoctor = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["admin-docto"],
     mutationFn: async (doctoData: IUser) => {
@@ -64,7 +66,7 @@ export const useAddAdminDoctor = () => {
     },
     onSuccess: (data) => {
       toast.success("Add success ");
-      invalidateQueries("admin-doctor");
+      queryClient.invalidateQueries({ queryKey: ["admin-doctor"] });
       return data.data;
     },
     onError: (error) => {

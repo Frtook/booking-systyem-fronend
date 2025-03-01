@@ -3,8 +3,12 @@ import { Input } from "./ui/input";
 import { Bell, Menu, Search } from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { getCookies } from "@/helper/cookie";
+import Link from "next/link";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const token = await getCookies("token");
+
   return (
     <div className="flex justify-between p-4 gap-10 items-center">
       <div className="block  xl:hidden">
@@ -28,7 +32,11 @@ export default function Navbar() {
           />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <p>Stevan dux</p>
+        <Link href="/login">
+          <Button variant={token ? "destructive" : "default"}>
+            {token ? "Logout" : "Login"}
+          </Button>
+        </Link>
       </div>
     </div>
   );

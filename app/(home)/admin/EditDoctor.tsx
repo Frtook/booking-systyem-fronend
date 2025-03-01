@@ -18,7 +18,6 @@ export default function EditDoctor({ doctorID }: { doctorID: number }) {
   const { mutate: update } = useUpdateDoctors(doctorID);
   const [status, setStatus] = useState(false);
   const handleSave = () => {
-    console.log();
     update(status);
   };
   return (
