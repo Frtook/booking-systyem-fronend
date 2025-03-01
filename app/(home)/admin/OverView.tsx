@@ -1,28 +1,32 @@
 import { useGetAdminDoctors } from "@/hooks/useAdmin";
 import { BriefcaseMedical, Eye, ShieldCheck, User } from "lucide-react";
 import React from "react";
-import { toast } from "sonner";
 
 export default function OverView() {
-  const { data, error, isError } = useGetAdminDoctors();
-  console.log(data);
-  if (isError) toast.error(error.message);
-  return (
-    <div className="p-4 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4  ">
-      <Card name="Patents" number={data?.length * 2 || "..."} icon={<User />} />
-      <Card
-        name="Doctor"
-        number={data?.length || "..."}
-        icon={<BriefcaseMedical />}
-      />
-      <Card name="View" number={12} icon={<Eye />} />
-      <Card
-        name="Active Doctor"
-        number={getDocotrStatus(data) || "..."}
-        icon={<ShieldCheck />}
-      />
-    </div>
-  );
+  const { data } = useGetAdminDoctors();
+
+  if (data) {
+    return (
+      <div className="p-4 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4  ">
+        <Card
+          name="Patents"
+          number={getPatentsCount(data) || "..."}
+          icon={<User />}
+        />
+        <Card
+          name="Doctor"
+          number={getDoctors(data) || "..."}
+          icon={<BriefcaseMedical />}
+        />
+        <Card name="View" number={12} icon={<Eye />} />
+        <Card
+          name="Active Doctor"
+          number={getDocotrStatus(data) || "..."}
+          icon={<ShieldCheck />}
+        />
+      </div>
+    );
+  }
 }
 interface ICard {
   name: string;
@@ -41,8 +45,14 @@ const Card: React.FC<ICard> = ({ name, number, icon }) => {
   );
 };
 
+const getDoctors = (data: IUser[]) => {
+  return data.filter((user) => user.role === "DOCTOR").length;
+};
+
 const getDocotrStatus = (data: IUser[]) => {
-  if (data) {
-    return data.filter((doctor: IUser) => doctor.status).length;
-  }
+  return data.filter((user) => user.role === "DOCTOR" && user.status).length;
+};
+
+const getPatentsCount = (data: IUser[]) => {
+  return data.filter((user) => user.role === "PATENT").length;
 };

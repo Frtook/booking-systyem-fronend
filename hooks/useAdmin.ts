@@ -8,8 +8,8 @@ export const useGetAdminDoctors = () => {
   return useQuery({
     queryKey: ["admin-doctor"],
     queryFn: async () => {
-      const res = await apiClient.get<IResponse>("/api/admin/view-doctors");
-      return res.data;
+      const res = await apiClient.get<IResponse>("/api/admin/view-users");
+      return res.data as IUser[];
     },
   });
 };

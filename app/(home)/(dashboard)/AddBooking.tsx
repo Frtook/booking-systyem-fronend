@@ -22,7 +22,7 @@ const AddBooking = ({ doctorID }: { doctorID: number }) => {
   const { mutate: booking, error, isError } = useBookAppointment();
   if (isError) toast.error(error.message);
   const handleClick = () => {
-    booking({ doctorId: doctorID, appointment_date: date });
+    booking({ doctorId: doctorID, appointment_date: date, patent_name: name });
   };
   return (
     <AlertDialog>

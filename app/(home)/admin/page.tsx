@@ -11,7 +11,7 @@ export default function Page() {
         <OverView />
       </div>
       <div className="flex justify-between">
-        <h1 className="font-bold text-3xl mb-4">All Doctors</h1>
+        <h1 className="font-bold text-3xl mb-4">All Users</h1>
         <AddDoctor />
       </div>
       <CardDoctor />

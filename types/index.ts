@@ -55,6 +55,7 @@ interface IResponseAppoinement {
 interface IBookAppoinetment {
   appointment_date: string;
   doctorId: number;
+  patent_name: string;
 }
 
 interface IAppointment {
